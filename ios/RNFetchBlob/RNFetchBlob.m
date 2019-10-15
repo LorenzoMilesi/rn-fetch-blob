@@ -619,10 +619,19 @@ RCT_EXPORT_METHOD(df:(RCTResponseSenderBlock)callback)
     [RNFetchBlobFS df:callback];
 }
 
+- (UIWindow *) keyWindow
+{
+    NSArray *windows = [[UIApplication sharedApplication] windows];
+    if ([windows count]) {
+        return windows[0];
+    }
+    return nil;
+}
+
 - (UIViewController *) documentInteractionControllerViewControllerForPreview: (UIDocumentInteractionController *) controller
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    return window.rootViewController;
+    //UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    return [self keyWindow].rootViewController;
 }
 
 # pragma mark - check expired network events
